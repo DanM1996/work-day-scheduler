@@ -2,15 +2,15 @@
 var currentDay = document.getElementById("currentDay");
 
 // variables for all hours in the work day
-var nineAM = moment().hour(9);
-var tenAM = moment().hour(10);
-var elevenAM = moment().hour(11);
-var twelvePM = moment().hour(12);
-var onePM = moment().hour(13);
-var twoPM = moment().hour(14);
-var threePM = moment().hour(15);
-var fourPM = moment().hour(16);
-var fivePM = moment().hour(17);
+var nineAM = 9;
+var tenAM = 10;
+var elevenAM = 11;
+var twelvePM = 12;
+var onePM = 13;
+var twoPM = 14;
+var threePM = 15;
+var fourPM = 16;
+var fivePM = 17;
 
 // sets variable to display current day with moment.js
 var day = moment().format("dddd, MMMM Do");
@@ -19,9 +19,9 @@ currentDay.textContent= day;
 
 function colorChange () {
     var presentTime = moment().hour();
-    console.log(presentTime);
+    console.log(presentTime, nineAM, fivePM);
 
-   if (presentTime > nineAM) {
+   if (presentTime < nineAM) {
        $("#9am").addClass("future")
    }
    else if (presentTime === nineAM)  {
@@ -30,7 +30,7 @@ function colorChange () {
    else {
        $("#9am").addClass("past")
    }
-   if (presentTime > tenAM) {
+   if (presentTime < tenAM) {
        $("#10am").addClass("future")
    }
    else if (presentTime === tenAM)  {
@@ -39,7 +39,7 @@ function colorChange () {
    else {
        $("#10am").addClass("past")
    }
-   if (presentTime > elevenAM) {
+   if (presentTime < elevenAM) {
        $("#11am").addClass("future")
    }
    else if (presentTime === elevenAM)  {
@@ -48,7 +48,7 @@ function colorChange () {
    else {
        $("#11am").addClass("past")
    }
-   if (presentTime > twelvePM) {
+   if (presentTime < twelvePM) {
        $("#12pm").addClass("future")
    }
    else if (presentTime === twelvePM)  {
@@ -57,7 +57,7 @@ function colorChange () {
    else {
        $("#12pm").addClass("past")
    }
-     if (presentTime > onePM) {
+     if (presentTime < onePM) {
        $("#1pm").addClass("future")
    }
    else if (presentTime === onePM)  {
@@ -66,7 +66,7 @@ function colorChange () {
    else {
        $("#1pm").addClass("past")
    }
-     if (presentTime > twoPM) {
+     if (presentTime < twoPM) {
        $("#2pm").addClass("future")
    }
    else if (presentTime === twoPM)  {
@@ -75,7 +75,7 @@ function colorChange () {
    else {
        $("#2pm").addClass("past")
    }
-     if (presentTime > threePM) {
+     if (presentTime < threePM) {
        $("#3pm").addClass("future")
    }
    else if (presentTime === threePM)  {
@@ -84,7 +84,7 @@ function colorChange () {
    else {
        $("#3pm").addClass("past")
    }
-     if (presentTime > fourPM) {
+     if (presentTime < fourPM) {
        $("#4pm").addClass("future")
    }
    else if (presentTime === fourPM)  {
@@ -93,7 +93,7 @@ function colorChange () {
    else {
        $("#4pm").addClass("past")
    }
-     if (presentTime > fivePM) {
+     if (presentTime < fivePM) {
        $("#5pm").addClass("future")
    }
    else if (presentTime === fivePM)  {
