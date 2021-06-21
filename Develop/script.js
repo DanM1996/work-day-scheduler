@@ -1,35 +1,138 @@
+// gets id from the HTML and turns it into variable
 var currentDay = document.getElementById("currentDay");
 
+// variables for all hours in the work day
+var nineAM = moment().hour(9);
+var tenAM = moment().hour(10);
+var elevenAM = moment().hour(11);
+var twelvePM = moment().hour(12);
+var onePM = moment().hour(13);
+var twoPM = moment().hour(14);
+var threePM = moment().hour(15);
+var fourPM = moment().hour(16);
+var fivePM = moment().hour(17);
+
+// sets variable to display current day with moment.js
 var day = moment().format("dddd, MMMM Do");
 console.log(day);
 currentDay.textContent= day;
 
+function colorChange () {
+    var presentTime = moment().hour();
+    console.log(presentTime);
+
+   if (presentTime > nineAM) {
+       $("#9am").addClass("future")
+   }
+   else if (presentTime === nineAM)  {
+       $("#9am").addClass("present")
+   }
+   else {
+       $("#9am").addClass("past")
+   }
+   if (presentTime > tenAM) {
+       $("#10am").addClass("future")
+   }
+   else if (presentTime === tenAM)  {
+       $("#10am").addClass("present")
+   }
+   else {
+       $("#10am").addClass("past")
+   }
+   if (presentTime > elevenAM) {
+       $("#11am").addClass("future")
+   }
+   else if (presentTime === elevenAM)  {
+       $("#11am").addClass("present")
+   }
+   else {
+       $("#11am").addClass("past")
+   }
+   if (presentTime > twelvePM) {
+       $("#12pm").addClass("future")
+   }
+   else if (presentTime === twelvePM)  {
+       $("#12pm").addClass("present")
+   }
+   else {
+       $("#12pm").addClass("past")
+   }
+     if (presentTime > onePM) {
+       $("#1pm").addClass("future")
+   }
+   else if (presentTime === onePM)  {
+       $("#1pm").addClass("present")
+   }
+   else {
+       $("#1pm").addClass("past")
+   }
+     if (presentTime > twoPM) {
+       $("#2pm").addClass("future")
+   }
+   else if (presentTime === twoPM)  {
+       $("#2pm").addClass("present")
+   }
+   else {
+       $("#2pm").addClass("past")
+   }
+     if (presentTime > threePM) {
+       $("#3pm").addClass("future")
+   }
+   else if (presentTime === threePM)  {
+       $("#3pm").addClass("present")
+   }
+   else {
+       $("#3pm").addClass("past")
+   }
+     if (presentTime > fourPM) {
+       $("#4pm").addClass("future")
+   }
+   else if (presentTime === fourPM)  {
+       $("#4pm").addClass("present")
+   }
+   else {
+       $("#4pm").addClass("past")
+   }
+     if (presentTime > fivePM) {
+       $("#5pm").addClass("future")
+   }
+   else if (presentTime === fivePM)  {
+       $("#5pm").addClass("present")
+   }
+   else {
+       $("#5pm").addClass("past")
+   }
+}
+
+
+
+// when saveBtn is clicked, data in the textarea is saved to local storage
 $(".saveBtn").on("click", function(){
-    console.log(this);
+    // sets the sibling (textarea next to it) as the value for task
     var task = $(this).siblings(".task-field").val();
+    // assings it the parent id (the times on the HTML id section)
     var time = $(this).parent().attr("id");
+    // stores the item by time id with a value of task
     localStorage.setItem(time, task);
 })
 
+// calls item back from local storage and sets it as the value of .task-field(the textarea)
 $("#9am .task-field").val(localStorage.getItem("9am"));
+
 $("#10am .task-field").val(localStorage.getItem("10am"));
+
 $("#11am .task-field").val(localStorage.getItem("11am"));
+
 $("#12pm .task-field").val(localStorage.getItem("12pm"));
+
 $("#1pm .task-field").val(localStorage.getItem("1pm"));
+
 $("#2pm .task-field").val(localStorage.getItem("2pm"));
+
 $("#3pm .task-field").val(localStorage.getItem("3pm"));
+
 $("#4pm .task-field").val(localStorage.getItem("4pm"));
+
 $("#5pm .task-field").val(localStorage.getItem("5pm"));
 
-$(".task-field").on("click", "p", function(){
-    // retrieve current text (if any) on the p element
-    var taskText = $(this)
-    .text()
-    .trim();
-    console.log(taskText);
-
-    // replace the text with an input field
-    var taskInput = $("<textarea>").addClass("form-control").val(text);
-    $(this).replaceWith(taskInput);
-    taskIntput.trigger("focus");
-});
+colorChange();
