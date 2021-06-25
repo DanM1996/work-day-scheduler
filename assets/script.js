@@ -1,16 +1,47 @@
 // gets id from the HTML and turns it into variable
 var currentDay = document.getElementById("currentDay");
 
-// variables for all hours in the work day
-var nineAM = 9;
-var tenAM = 10;
-var elevenAM = 11;
-var twelvePM = 12;
-var onePM = 13;
-var twoPM = 14;
-var threePM = 15;
-var fourPM = 16;
-var fivePM = 17;
+if (localStorage.getItem("schedule")) {
+    var schedule = JSON.parse(localStorage.getItem("schedule"))
+} else {
+var schedule = [
+    {
+        time: 9,
+        task: ""
+    },
+    {
+        time: 10,
+        task: ""
+    },
+    {
+        time: 11,
+        task: ""
+    },
+    {
+        time: 12,
+        task: ""
+    },
+    {
+        time: 13,
+        task: ""
+    },
+    {
+        time: 14,
+        task: ""
+    },
+    {
+        time: 15,
+        task: ""
+    },
+    {
+        time: 16,
+        task: ""
+    },
+    {
+        time: 17,
+        task: ""
+    }
+]}
 
 // sets variable to display current day with moment.js
 var day = moment().format("dddd, MMMM Do");
@@ -19,120 +50,39 @@ currentDay.textContent= day;
 
 function colorChange () {
     var presentTime = moment().hour();
-    console.log(presentTime, nineAM, fivePM);
-
-   if (presentTime < nineAM) {
-       $("#9am").addClass("future")
-   }
-   else if (presentTime === nineAM)  {
-       $("#9am").addClass("present")
-   }
-   else {
-       $("#9am").addClass("past")
-   }
-   if (presentTime < tenAM) {
-       $("#10am").addClass("future")
-   }
-   else if (presentTime === tenAM)  {
-       $("#10am").addClass("present")
-   }
-   else {
-       $("#10am").addClass("past")
-   }
-   if (presentTime < elevenAM) {
-       $("#11am").addClass("future")
-   }
-   else if (presentTime === elevenAM)  {
-       $("#11am").addClass("present")
-   }
-   else {
-       $("#11am").addClass("past")
-   }
-   if (presentTime < twelvePM) {
-       $("#12pm").addClass("future")
-   }
-   else if (presentTime === twelvePM)  {
-       $("#12pm").addClass("present")
-   }
-   else {
-       $("#12pm").addClass("past")
-   }
-     if (presentTime < onePM) {
-       $("#1pm").addClass("future")
-   }
-   else if (presentTime === onePM)  {
-       $("#1pm").addClass("present")
-   }
-   else {
-       $("#1pm").addClass("past")
-   }
-     if (presentTime < twoPM) {
-       $("#2pm").addClass("future")
-   }
-   else if (presentTime === twoPM)  {
-       $("#2pm").addClass("present")
-   }
-   else {
-       $("#2pm").addClass("past")
-   }
-     if (presentTime < threePM) {
-       $("#3pm").addClass("future")
-   }
-   else if (presentTime === threePM)  {
-       $("#3pm").addClass("present")
-   }
-   else {
-       $("#3pm").addClass("past")
-   }
-     if (presentTime < fourPM) {
-       $("#4pm").addClass("future")
-   }
-   else if (presentTime === fourPM)  {
-       $("#4pm").addClass("present")
-   }
-   else {
-       $("#4pm").addClass("past")
-   }
-     if (presentTime < fivePM) {
-       $("#5pm").addClass("future")
-   }
-   else if (presentTime === fivePM)  {
-       $("#5pm").addClass("present")
-   }
-   else {
-       $("#5pm").addClass("past")
-   }
-}
-
-
+    for (i = 0; i < schedule.length; i++) {
+        if (presentTime < schedule[i].time) {
+            $("#" + schedule[i].time).addClass("future")
+        }
+        else if (presentTime === schedule[i].time) {
+            $("#" + schedule[i].time).addClass("present")
+        }
+        else {
+            $("#" + schedule[i].time).addClass("past")
+        }
+    }
+};
 
 // when saveBtn is clicked, data in the textarea is saved to local storage
 $(".saveBtn").on("click", function(){
     // sets the sibling (textarea next to it) as the value for task
     var task = $(this).siblings(".task-field").val();
+    console.log(task);
     // assings it the parent id (the times on the HTML id section)
-    var time = $(this).parent().attr("id");
+    var timeId = $(this).parent().attr("id");
+    for (i = 0; i < schedule.length; i++) {
+        if (schedule[i].time === +timeId) {
+            schedule[i].task = task;
+        }
+    }
+    console.log(schedule);
     // stores the item by time id with a value of task
-    localStorage.setItem(time, task);
+    localStorage.setItem("schedule", JSON.stringify(schedule));
 })
-
-// calls item back from local storage and sets it as the value of .task-field(the textarea)
-$("#9am .task-field").val(localStorage.getItem("9am"));
-
-$("#10am .task-field").val(localStorage.getItem("10am"));
-
-$("#11am .task-field").val(localStorage.getItem("11am"));
-
-$("#12pm .task-field").val(localStorage.getItem("12pm"));
-
-$("#1pm .task-field").val(localStorage.getItem("1pm"));
-
-$("#2pm .task-field").val(localStorage.getItem("2pm"));
-
-$("#3pm .task-field").val(localStorage.getItem("3pm"));
-
-$("#4pm .task-field").val(localStorage.getItem("4pm"));
-
-$("#5pm .task-field").val(localStorage.getItem("5pm"));
+for (i = 0; i < schedule.length; i++) {
+    if (schedule[i].task != "") {
+        $("#" + schedule[i].time + " .task-field").val(schedule[i].task)
+    }  
+}
 
 colorChange();
